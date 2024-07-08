@@ -91,9 +91,9 @@ st.markdown("### Key Metrics")
 col1, col2, col3, col4, col5, col6 = st.columns(6)
 col1.metric(label="Total P&L", value=f"+ £{total_pnl:,.2f}")
 col2.metric(label="Trades", value=f"{total_trades}")
-col3.metric(label="Perc. Growth", value=f"+{percentage_growth:.2f}%")
+col3.metric(label="Account Growth", value=f"+{percentage_growth:.2f}%")
 if rr_ratio_avg is not None:
-    col4.metric(label="Avg RR", value=f"{rr_ratio_avg:.2f}")
+    col4.metric(label="Average RRR", value=f"{rr_ratio_avg:.2f}")
 if win_rate is not None:
     col5.metric(label="Win Rate", value=f"{win_rate:.2f}%")
 col6.metric(label="Traded Day", value=f"{most_traded_day}")
@@ -156,10 +156,10 @@ with side_col:
     st.subheader("Other Key Metrics")
     st.markdown(f"""
     - **Most Traded Pair**: **{most_traded_instrument}**
-    - **Avg. Trade Duration**: **{average_trade_duration:.2f} mins**
+    - **Average Trade Duration**: **{average_trade_duration:.2f} mins**
     - **Max Drawdown**: **£{max_drawdown:,.2f}**
-    - **Avg. Win**: **£{average_win:.2f}**
-    - **Avg. Loss**: **£{average_loss:.2f}**
+    - **Average Win**: **£{average_win:.2f}**
+    - **Average Loss**: **£{average_loss:.2f}**
     """)
 
 # Additional analysis below the main chart
