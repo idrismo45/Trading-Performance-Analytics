@@ -85,9 +85,6 @@ average_loss = df[df['Profit'] < 0]['Profit'].mean()
 out_of_session_trades = df[df['Trading Session'] == 'Out of Session']
 out_of_session_loss = out_of_session_trades['Profit'].sum()
 
-# Display the result
-st.metric(label="Loss from Out of Session Trades", value=f"£{out_of_session_loss:,.2f}")
-
 
 # Display the key metrics in a more compact manner
 st.markdown("### Key Metrics")
@@ -127,18 +124,34 @@ with main_col:
     st.pyplot(fig)
     plt.show()
 
+
+# Calculate the profit/loss for trades out of session
+out_of_session_trades = df[df['Trading Session'] == 'Out of Session']
+out_of_session_loss = out_of_session_trades['Profit'].sum()
+
+# Identify the worst trading pair and session
+worst_trading_pair = net_profit_per_symbol.idxmin()
+worst_trading_pair_loss = net_profit_per_symbol.min()
+worst_trading_session = session_performance.idxmin()
+worst_trading_session_loss = session_performance.min()
+
+
 with side_col:
     st.subheader("Insights and Advice")
     st.markdown(f"""
-    - **Best Trading Pair**: **{net_profit_per_symbol.idxmax()}** with a net profit of £{net_profit_per_symbol.max():,.2f}.
-    - **Best Trading Session**: **{session_performance.idxmax()}** with a total profit of £{session_performance.max():,.2f}.
-    - **Advice**:
-      - :chart_with_upwards_trend: **Focus on trading the {net_profit_per_symbol.idxmax()} pair** for highest returns.
-      - :mag_right: **Review and refine strategies** for pairs and sessions with lower performance.
-      - :pound: Aim for at least **2 RR Ratio** and **50% win rate** to increase profitability.
-      - :clock1: **Consider only trading LDN and NY sessions** - trading out of session proves to be a hindrance to being profitable. Consider no longer trading **GBP/USD, GBP/JPY, and XAU/USD** due to potential volatility challenges that is causing those to be your worst performing pairs.
-      If you stayed away from trading "Out of Session", you would've saved
-    """)
+- **Best Trading Pair**: **{net_profit_per_symbol.idxmax()}** with a net profit of £{net_profit_per_symbol.max():,.2f}.
+- **Worst Trading Pair**: **{worst_trading_pair}** with a net loss of £{abs(worst_trading_pair_loss):,.2f}.
+- **Best Trading Session**: **{session_performance.idxmax()}** with a total profit of £{session_performance.max():,.2f}.
+- **Worst Trading Session**: **{worst_trading_session}** with a total loss of £{abs(worst_trading_session_loss):,.2f}.
+- **Advice**:
+  - :chart_with_upwards_trend: **Focus on trading the {net_profit_per_symbol.idxmax()} pair** for highest returns.
+  - :mag_right: **Review and refine strategies** for pairs and sessions with lower performance.
+  - :pound: Aim for at least **2 RR Ratio** and **50% win rate** to enhance profitability.
+  - :clock1: **Consider only trading LDN and NY sessions** - trading out of session proves to be a hindrance to being profitable.
+  - :no_entry_sign: **If you stayed away from trading 'Out of Session', you would've saved: £{out_of_session_loss:,.2f}**
+""")
+    
+
 
     st.subheader("Other Key Metrics")
     st.markdown(f"""
