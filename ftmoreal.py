@@ -12,7 +12,7 @@ warnings.filterwarnings('ignore')
 st.set_page_config(page_title='Performance Analyser', page_icon=':bar_chart:', layout='wide')
 
 # Title and description
-st.title(":bar_chart: Account Performance from Sept 2023 - Mar 2024")
+st.title(":bar_chart: John Doe - Account Performance from Sept 2023 - Mar 2024")
 st.markdown("""
 This dashboard provides a detailed overview of the trading performance for the client from September 2023 to March 2024. 
 It includes cumulative balance analysis, net profit per symbol, best trading sessions, and actionable insights.
