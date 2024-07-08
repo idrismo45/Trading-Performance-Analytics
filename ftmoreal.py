@@ -111,7 +111,7 @@ with main_col:
     st.subheader("Trading Session Performance")
     # Define colors
     colors = ['green' if session in ['New York Session', 'London Session'] else 'red' for session in session_performance.index]
-    fig, ax = plt.subplots(figsize=(6, 4))
+    fig, ax = plt.subplots(figsize=(5, 3))
     session_performance.plot(kind='bar', ax=ax, color=colors)
     ax.set_ylabel('Net Profit')
     ax.set_xticklabels(session_performance.index, rotation=45, ha='right', fontsize=10)
