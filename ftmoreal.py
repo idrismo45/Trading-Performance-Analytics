@@ -148,7 +148,7 @@ with side_col:
   - :mag_right: **Review and refine strategies** for pairs and sessions with lower performance.
   - :pound: Aim for at least **2 RR Ratio** and **50% win rate** to enhance profitability.
   - :clock1: **Consider only trading LDN and NY sessions** - trading out of session proves to be a hindrance to being profitable.
-  - :no_entry_sign: **If you stayed away from trading 'Out of Session', you would've saved: £{out_of_session_loss:,.2f}**
+  - :no_entry_sign: **If you stayed away from trading 'Out of Session', you would've saved: £{out_of_session_loss:,.2f}.**
 """)
     
 
