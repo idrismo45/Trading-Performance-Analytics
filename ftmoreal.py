@@ -96,7 +96,7 @@ if rr_ratio_avg is not None:
     col4.metric(label="Average RRR", value=f"{rr_ratio_avg:.2f}")
 if win_rate is not None:
     col5.metric(label="Win Rate", value=f"{win_rate:.2f}%")
-col6.metric(label="Traded Day", value=f"{most_traded_day}")
+col6.metric(label="Most Traded Day", value=f"{most_traded_day}")
 
 main_col, side_col = st.columns([2, 1])
 
