@@ -16,6 +16,7 @@ st.title(":bar_chart: Account Performance from Sept 2023 - Mar 2024")
 st.markdown("""
 This dashboard provides a detailed overview of the trading performance for the client from September 2023 to March 2024. 
 It includes cumulative balance analysis, net profit per symbol, best trading sessions, and actionable insights.
+**Starting Balance : £25,000**.
 """)
 
 # Load and preprocess data
@@ -83,7 +84,7 @@ average_loss = df[df['Profit'] < 0]['Profit'].mean()
 # Display the key metrics in a more compact manner
 st.markdown("### Key Metrics")
 col1, col2, col3, col4, col5, col6 = st.columns(6)
-col1.metric(label="Total P&L", value=f"+£{total_pnl:,.2f}")
+col1.metric(label="Total P&L", value=f"+ £{total_pnl:,.2f}")
 col2.metric(label="Trades", value=f"{total_trades}")
 col3.metric(label="Perc. Growth", value=f"+{percentage_growth:.2f}%")
 if rr_ratio_avg is not None:
