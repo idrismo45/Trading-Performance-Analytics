@@ -2,13 +2,14 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import plotly.graph_objs as go
 from scipy.interpolate import make_interp_spline
 import warnings
 from datetime import datetime
 
 # Configure Streamlit page
 warnings.filterwarnings('ignore')
-st.set_page_config(page_title='Perfomance Analyser', page_icon=':bar_chart:', layout='wide')
+st.set_page_config(page_title='Performance Analyser', page_icon=':bar_chart:', layout='wide')
 
 # Title and description
 st.title(":bar_chart: Account Performance from Sept 2023 - Mar 2024")
@@ -62,24 +63,22 @@ most_traded_instrument = df['Symbol'].mode()[0]
 most_traded_day = df['Close'].dt.day_name().mode()[0]
 
 # Calculate win rate
-total_trades = len(df)
 winning_trades = df[df['Profit'] > 0]
-
-if not winning_trades.empty:
-    win_rate = len(winning_trades) / total_trades * 100
-else:
-    win_rate = None    
+win_rate = len(winning_trades) / total_trades * 100 if not winning_trades.empty else None
 
 # Calculate Risk-Reward (RR) Ratio using Average Profit and Average Loss
 average_profit = df[df['Profit'] > 0]['Profit'].mean()
 average_loss = df[df['Profit'] < 0]['Profit'].mean()
-if average_loss != 0:
-    rr_ratio_avg = abs(average_profit / average_loss)
-else:
-    rr_ratio_avg = None
+rr_ratio_avg = abs(average_profit / average_loss) if average_loss != 0 else None
 
 # Calculate percentage growth
 percentage_growth = (df['Balance'].iloc[-1] - initial_balance) / initial_balance * 100
+
+# Calculate additional key metrics
+max_drawdown = df['Balance'].min() - initial_balance
+average_trade_duration = df['Trade duration in minutes'].mean()
+average_win = df[df['Profit'] > 0]['Profit'].mean()
+average_loss = df[df['Profit'] < 0]['Profit'].mean()
 
 # Display the key metrics in a more compact manner
 st.markdown("### Key Metrics")
@@ -108,6 +107,17 @@ with main_col:
     ax.grid(False)
     st.pyplot(fig)
 
+    st.subheader("Trading Session Performance")
+    # Define colors
+    colors = ['green' if session in ['New York Session', 'London Session'] else 'red' for session in session_performance.index]
+    fig, ax = plt.subplots(figsize=(6, 4))
+    session_performance.plot(kind='bar', ax=ax, color=colors)
+    ax.set_ylabel('Net Profit')
+    ax.set_xticklabels(session_performance.index, rotation=45, ha='right', fontsize=10)
+    ax.grid(True, which='both', axis='y', linestyle='-')  # Only horizontal lines
+    st.pyplot(fig)
+    plt.show()
+
 with side_col:
     st.subheader("Insights and Advice")
     st.markdown(f"""
@@ -117,20 +127,17 @@ with side_col:
       - :chart_with_upwards_trend: **Focus on trading the {net_profit_per_symbol.idxmax()} pair** for highest returns.
       - :mag_right: **Review and refine strategies** for pairs and sessions with lower performance.
       - :pound: Aim for at least **2 RR Ratio** and **50% win rate** to enhance profitability.
-      - :clock1: **Consider only trading LDN and NY session** - trading out of session proves to be a hindrance to being profitable. Consider no longer trading **GBP/USD, GBP/JPY, and XAU/USD** due to potential volatility challenges that is causing those to be your worst performing pairs.
+      - :clock1: **Consider only trading LDN and NY sessions** - trading out of session proves to be a hindrance to being profitable. Consider no longer trading **GBP/USD, GBP/JPY, and XAU/USD** due to potential volatility challenges that is causing those to be your worst performing pairs.
     """)
 
-    st.subheader("Trading Session Performance")
-    # Define colors
-    colors = ['green' if session in ['New York Session', 'London Session'] else 'red' for session in session_performance.index]
-    fig, ax = plt.subplots(figsize=(4, 2.5))
-    bars = session_performance.plot(kind='bar', ax=ax, color=colors)
-    ax.set_ylabel('Net Profit')
-    ax.set_xticklabels(session_performance.index, rotation=45, ha='right', fontsize=8)
-    ax.grid(True, which='both', axis='y', linestyle='-')  # Only horizontal lines
-    
-    st.pyplot(fig)
-    plt.show()
+    st.subheader("Other Key Metrics")
+    st.markdown(f"""
+    - **Most Traded Pair**: **{most_traded_instrument}**
+    - **Avg. Trade Duration**: **{average_trade_duration:.2f} mins**
+    - **Max Drawdown**: **£{max_drawdown:,.2f}**
+    - **Avg. Win**: **£{average_win:.2f}**
+    - **Avg. Loss**: **£{average_loss:.2f}**
+    """)
 
 # Additional analysis below the main chart
 st.markdown("### Additional Analysis")
@@ -139,7 +146,7 @@ col7, col8 = st.columns(2)
 with col7:    
     st.subheader("Trade Duration Analysis")
     trade_duration = df['Trade duration in minutes']
-    fig, ax = plt.subplots(figsize=(4, 2.5))
+    fig, ax = plt.subplots(figsize=(6, 4))
     ax.hist(trade_duration, bins=30, color='skyblue', edgecolor='black')
     ax.set_xlabel('Duration (minutes)')
     ax.set_ylabel('Frequency')
@@ -148,10 +155,10 @@ with col7:
 
 with col8:
     st.subheader("Net Profit per Symbol")
-    fig, ax = plt.subplots(figsize=(4, 2.5))
+    fig, ax = plt.subplots(figsize=(6, 4))
     net_profit_per_symbol.plot(kind='bar', ax=ax, color='skyblue')
     ax.set_ylabel('Net Profit')
-    ax.set_xticklabels(net_profit_per_symbol.index, rotation=45, ha='right', fontsize=8)
+    ax.set_xticklabels(net_profit_per_symbol.index, rotation=45, ha='right', fontsize=10)
     ax.grid(True, which='both', axis='y', linestyle='-')  # Only horizontal lines
     st.pyplot(fig)
     plt.show()
