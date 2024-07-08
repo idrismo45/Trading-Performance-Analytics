@@ -81,6 +81,14 @@ average_trade_duration = df['Trade duration in minutes'].mean()
 average_win = df[df['Profit'] > 0]['Profit'].mean()
 average_loss = df[df['Profit'] < 0]['Profit'].mean()
 
+# Calculate the profit/loss for trades out of session
+out_of_session_trades = df[df['Trading Session'] == 'Out of Session']
+out_of_session_loss = out_of_session_trades['Profit'].sum()
+
+# Display the result
+st.metric(label="Loss from Out of Session Trades", value=f"£{out_of_session_loss:,.2f}")
+
+
 # Display the key metrics in a more compact manner
 st.markdown("### Key Metrics")
 col1, col2, col3, col4, col5, col6 = st.columns(6)
@@ -127,8 +135,9 @@ with side_col:
     - **Advice**:
       - :chart_with_upwards_trend: **Focus on trading the {net_profit_per_symbol.idxmax()} pair** for highest returns.
       - :mag_right: **Review and refine strategies** for pairs and sessions with lower performance.
-      - :pound: Aim for at least **2 RR Ratio** and **50% win rate** to enhance profitability.
+      - :pound: Aim for at least **2 RR Ratio** and **50% win rate** to increase profitability.
       - :clock1: **Consider only trading LDN and NY sessions** - trading out of session proves to be a hindrance to being profitable. Consider no longer trading **GBP/USD, GBP/JPY, and XAU/USD** due to potential volatility challenges that is causing those to be your worst performing pairs.
+      If you stayed away from trading "Out of Session", you would've saved
     """)
 
     st.subheader("Other Key Metrics")
