@@ -9,7 +9,7 @@ from datetime import datetime
 
 # Configure Streamlit page
 warnings.filterwarnings('ignore')
-st.set_page_config(page_title='Performance Analyser', page_icon=':bar_chart:', layout='wide')
+st.set_page_config(page_title='Foreign-Exchange Performance Analyser', page_icon=':bar_chart:', layout='wide')
 
 # Title and description
 st.title(":bar_chart: John Doe - Account Performance from Sept 2023 - Mar 2024")
