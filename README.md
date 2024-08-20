@@ -1,5 +1,7 @@
  **Trading Performance Analytics Report**
 
+assets/images/John-Doe-Performance-0923-0324.pdf
+
 Overview:
 
 This project involves creating a detailed breakdown analysis of a client's trading performance over a six-month period. The analysis includes various key metrics and visualisations to provide actionable insights into the trading activities.
