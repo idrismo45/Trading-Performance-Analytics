@@ -1,6 +1,6 @@
  **Trading Performance Analytics Report**
 
-![Dashboard View on Looker](assets/images/John-Doe-Performance-0923-0324.pdf)
+![Analytics Report](assets/images/John-Doe-Performance-0923-0324-1.png)
 
 
 Overview:
