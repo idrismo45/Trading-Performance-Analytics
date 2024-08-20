@@ -1,4 +1,4 @@
-** Trading Performance Analytics Report **
+ #** Trading Performance Analytics Report **
 
 Overview:
 
