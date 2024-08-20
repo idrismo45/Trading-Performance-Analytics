@@ -1,4 +1,4 @@
-Trading Performance Analysis Dashboard
+** Trading Performance Analytics Report **
 
 Overview:
 
