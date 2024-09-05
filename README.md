@@ -3,20 +3,42 @@
 ![Analytics Report](assets/images/John-Doe-Performance-0923-0324-1.png)
 
 
-Overview:
+Overview
+This report provides a comprehensive analysis of a client's trading performance over a six-month period, from September 2023 to March 2024. Using Python and Streamlit, the dashboard offers in-depth insights into key metrics and trading patterns, aimed at optimising trading strategies and improving overall profitability. The client was offered both a Streamlit layout and a PowerPoint presentation, and they preferred the latter for its presentation format.
 
-This project involves creating a detailed breakdown analysis of a client's trading performance over a six-month period. The analysis includes various key metrics and visualisations to provide actionable insights into the trading activities.
+Objective
+The client sought an in-depth evaluation of their trading activities, focusing on identifying trends and deriving actionable insights. This project aimed to present a clear, intuitive analysis of trading performance, helping the client make informed decisions.
 
-Objective:
+Key Features
+Cumulative Balance Analysis: Tracks the growth of the account balance over the period, showing how trading activities impacted overall performance.
+Net Profit per Symbol: Highlights the profitability of different trading symbols, identifying which symbols contributed most to the overall profit.
+Trading Session Performance: Analyses performance across different trading sessions (New York, London, and Out of Session) to pinpoint the most effective trading times.
+Key Metrics: Includes essential statistics such as total P&L, total trades, win rate, average risk-reward ratio, percentage growth, and most traded day.
+Additional Key Metrics: Provides insights on the most traded pair, average trade duration, maximum drawdown, average win, and average loss.
+Insights and Recommendations: Offers actionable advice based on the analysis, including suggestions for optimising trading pairs and sessions to maximise profitability.
+Key Metrics
+Total P&L: £3,255.22
+Total Trades: [Total number of trades]
+Account Growth: [Percentage growth]
+Win Rate: [Win rate percentage]
+Average Risk-Reward Ratio: [Ratio]
+Most Traded Day: [Day of the week]
+Insights and Recommendations
+Best Trading Pair: [Most profitable pair] with a net profit of £[Amount].
+Worst Trading Pair: [Least profitable pair] with a net loss of £[Amount].
+Best Trading Session: [Most profitable session] with a total profit of £[Amount].
+Worst Trading Session: [Least profitable session] with a total loss of £[Amount].
+Advice:
+Focus on trading the [Most profitable pair] for optimal returns.
+Review and refine strategies for less profitable pairs and sessions.
+Aim for a minimum RR Ratio of 2 and a 50% win rate to enhance profitability.
+Consider trading only during the London and New York sessions to avoid losses from out-of-session trades.
+Avoiding out-of-session trades could have saved £[Amount].
+Additional Analysis
+Trade Duration Analysis: Examines the distribution of trade durations to understand trading habits and efficiency.
+Net Profit per Symbol: Provides a bar chart visualisation of profitability across different trading symbols.
+Summary
+The detailed analysis reveals a steady growth in account balance with notable variations in performance across different symbols and trading sessions. The insights gained are projected to improve the client’s win rate by 19.3% and risk-reward ratio by 11.1%, significantly enhancing trading profitability.
 
-A client requested an in-depth analysis of their trading performance from September 2023 to March 2024. This was my first attempt at conducting such an analysis, and the goal was to present the findings in an intuitive and comprehensive manner.
-
-Key Features:
-
-Cumulative Balance Analysis: Displays the account's balance growth over the amount of trades in that time period.
-Net Profit per Symbol: Highlights the profitability of different trading symbols.
-Trading Session Performance: Shows performance during different trading sessions (New York, London, and Out of Session).
-Key Metrics: Provides essential statistics such as total P&L, total trades, win rate, average RR ratio, percentage growth, and most traded day.
-Additional Key Metrics: Includes the most traded pair, average trade duration, maximum drawdown, average win, and average loss.
-Insights and Advice: Offers recommendations based on the analysis, including best and worst trading pairs and sessions, and potential savings by avoiding out-of-session trades.
+The client expressed high satisfaction with the findings and requested ongoing collaboration for future performance analysis. They opted for a PowerPoint presentation over a Streamlit layout for its suitability in their review meetings.
 
