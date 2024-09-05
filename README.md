@@ -11,6 +11,8 @@ This report provides a comprehensive analysis of a client's trading performance 
 
 The client sought an in-depth evaluation of their trading activities, focusing on identifying trends and deriving actionable insights. This project aimed to present a clear, intuitive analysis of trading performance, helping the client make informed decisions.
 
+
+
 **Key Features:**
 
 Cumulative Balance Analysis: Tracks the growth of the account balance over the period, showing how trading activities impacted overall performance.
@@ -24,6 +26,8 @@ Key Metrics: Includes essential statistics such as total P&L, total trades, win 
 Additional Key Metrics: Provides insights on the most traded pair, average trade duration, maximum drawdown, average win, and average loss.
 
 Insights and Recommendations: Offers actionable advice based on the analysis, including suggestions for optimising trading pairs and sessions to maximise profitability.
+
+
 
 
 
@@ -42,6 +46,8 @@ Average Risk-Reward Ratio: 1.80
 Most Traded Day: Monday
 
 
+
+
 **Insights and Recommendations:**
 
 Best Trading Pair: EURGBP with a net profit of £2438.92
@@ -51,6 +57,8 @@ Worst Trading Pair: GBPUSD with a net loss of £1046.15
 Best Trading Session: New York Session with a total profit of £7401.40
 
 Worst Trading Session: Out Of Session with a total loss of £4977.57
+
+
 
 
 
@@ -73,6 +81,8 @@ Avoiding out-of-session trades could have saved £4977.57.
 Trade Duration Analysis: Examines the distribution of trade durations to understand trading habits and efficiency.
 
 Net Profit per Symbol: Provides a bar chart visualisation of profitability across different trading symbols.
+
+
 
 
 
