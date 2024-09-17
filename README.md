@@ -1,4 +1,4 @@
- **Trading Performance Analytics Report**
+## Trading Performance Analytics Report
 
 ![Analytics Report](assets/images/John-Doe-Performance-0923-0324-1.png)
 
