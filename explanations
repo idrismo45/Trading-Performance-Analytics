@@ -1,9 +1,23 @@
 
-## Performance Analyser Code Explanation
+# Performance Analyser Code Explanation
 
-This document provides an in-depth explanation of the **Performance Analyser** application, which analyses a client's trading performance from September 2023 to March 2024. The application uses Streamlit for the dashboard interface, Matplotlib and Plotly for visualizations, and Pandas for data manipulation. Below is a detailed line-by-line explanation of the code.
+This document provides an in-depth explanation of the **Performance Analyser** application, which analyses a client's trading performance from September 2023 to March 2024. The application utilizes **Streamlit** for the dashboard interface, **Matplotlib** and **Plotly** for visualizations, and **Pandas** for data manipulation. Below is a detailed line-by-line explanation of the code.
 
-### Importing Libraries
+## Table of Contents
+1. [Importing Libraries](#importing-libraries)
+2. [Streamlit Page Configuration](#streamlit-page-configuration)
+3. [Title and Description](#title-and-description)
+4. [Loading and Preprocessing Data](#loading-and-preprocessing-data)
+5. [Defining Trading Sessions](#defining-trading-sessions)
+6. [Grouping and Calculating Metrics](#grouping-and-calculating-metrics)
+7. [Smoothing the Balance Line](#smoothing-the-balance-line)
+8. [Key Metrics Calculation](#key-metrics-calculation)
+9. [Additional Metrics Calculation](#additional-metrics-calculation)
+10. [Displaying Key Metrics](#displaying-key-metrics)
+11. [Visualizations](#visualizations)
+12. [Insights and Advice](#insights-and-advice)
+
+## Importing Libraries
 
 ```python
 import streamlit as st
@@ -15,25 +29,27 @@ from scipy.interpolate import make_interp_spline
 import warnings
 from datetime import datetime
 ```
-- **streamlit**: This library is used to create interactive web applications for data analysis.
-- **pandas**: A powerful data manipulation and analysis library used to handle the trading data.
-- **matplotlib**: Used for plotting and visualising data.
-- **numpy**: A library for numerical computations that facilitate mathematical operations on arrays.
-- **plotly.graph_objs**: An optional import for creating interactive plots.
-- **scipy.interpolate**: Utilised for smoothing the cumulative balance line using spline interpolation.
-- **warnings**: A library to manage warnings in the application.
-- **datetime**: Helps handle and manipulate date and time data.
 
-### Streamlit Page Configuration
+- **streamlit**: For creating interactive web applications.
+- **pandas**: For data manipulation and analysis.
+- **matplotlib**: For plotting and visualizing data.
+- **numpy**: For numerical computations.
+- **plotly.graph_objs**: For creating interactive plots (optional).
+- **scipy.interpolate**: For smoothing the cumulative balance line.
+- **warnings**: To manage warnings.
+- **datetime**: For handling date and time data.
+
+## Streamlit Page Configuration
 
 ```python
 warnings.filterwarnings('ignore')
 st.set_page_config(page_title='Performance Analyser', page_icon=':bar_chart:', layout='wide')
 ```
-- **warnings.filterwarnings('ignore')**: Suppresses warnings to improve the user interface experience.
-- **st.set_page_config**: Configures the title, icon, and layout of the Streamlit page.
 
-### Title and Description
+- **warnings.filterwarnings('ignore')**: Suppresses warnings for a cleaner UI.
+- **st.set_page_config**: Sets the title, icon, and layout of the Streamlit page.
+
+## Title and Description
 
 ```python
 st.title(":bar_chart: John Doe - Account Performance from Sept 2023 - Mar 2024")
@@ -43,10 +59,11 @@ It includes cumulative balance analysis, net profit per symbol, best trading ses
 **Starting Balance : £25,000**.
 """)
 ```
-- **st.title**: Displays the main title of the application.
-- **st.markdown**: Allows for rich text formatting to provide a description of the dashboard, including an overview of the features and the starting balance.
 
-### Loading and Preprocessing Data
+- **st.title**: Displays the main title of the application.
+- **st.markdown**: Formats rich text for a description of the dashboard and the starting balance.
+
+## Loading and Preprocessing Data
 
 ```python
 file_path = 'FTMO.CSV.REAL.csv'
@@ -57,13 +74,14 @@ df['Trade duration in minutes'] = df['Trade duration in seconds'] / 60
 df.drop(['Trade duration in seconds'], axis=1, inplace=True)
 df.sort_values(by='Close', inplace=True)
 ```
-- **file_path**: Specifies the path to the CSV file containing trading data.
-- **pd.read_csv**: Loads the CSV data into a DataFrame.
-- **pd.to_datetime**: Converts the 'Open' and 'Close' columns to datetime objects for easier manipulation.
-- **Trade duration calculation**: Computes trade duration in minutes by dividing the 'Trade duration in seconds' by 60 and then dropping the original column.
-- **Sorting**: Sorts the DataFrame by the 'Close' column to analyze data in chronological order.
 
-### Defining Trading Sessions
+- **file_path**: Path to the CSV file containing trading data.
+- **pd.read_csv**: Loads the CSV data into a DataFrame.
+- **pd.to_datetime**: Converts the 'Open' and 'Close' columns to datetime objects.
+- **Trade duration calculation**: Computes trade duration in minutes and drops the original column.
+- **Sorting**: Organizes data chronologically by the 'Close' column.
+
+## Defining Trading Sessions
 
 ```python
 def get_trading_session(hour):
@@ -76,10 +94,11 @@ def get_trading_session(hour):
 
 df['Trading Session'] = df['Close'].dt.hour.apply(get_trading_session)
 ```
-- **get_trading_session**: A function that categorizes trades into 'New York', 'London', or 'Out of Session' based on the closing hour of the trade.
-- **apply**: Applies the function to each hour in the 'Close' column to create a new 'Trading Session' column.
 
-### Grouping and Calculating Metrics
+- **get_trading_session**: Classifies trades into 'New York', 'London', or 'Out of Session'.
+- **apply**: Applies the function to each hour in the 'Close' column.
+
+## Grouping and Calculating Metrics
 
 ```python
 net_profit_per_symbol = df.groupby('Symbol')['Profit'].sum().sort_values()
@@ -90,10 +109,11 @@ initial_balance = 25000
 df['Cumulative Profit'] = df['Profit'].cumsum()
 df['Balance'] = initial_balance + df['Cumulative Profit']
 ```
-- **groupby**: Groups the DataFrame by 'Symbol' and 'Trading Session' to calculate net profit and performance for each.
+
+- **groupby**: Groups data by 'Symbol' and 'Trading Session' for profit calculation.
 - **cumsum**: Computes cumulative profit and overall balance based on the initial balance of £25,000.
 
-### Smoothing the Balance Line
+## Smoothing the Balance Line
 
 ```python
 x = np.arange(len(df))
@@ -102,11 +122,12 @@ x_smooth = np.linspace(x.min(), x.max(), 10000)
 spl = make_interp_spline(x, y, k=3)
 y_smooth = spl(x_smooth)
 ```
-- **np.arange**: Creates an array of indices corresponding to the DataFrame length.
-- **np.linspace**: Generates smooth x values for plotting.
-- **make_interp_spline**: Creates a spline interpolation to smooth the balance line for better visualization.
 
-### Key Metrics Calculation
+- **np.arange**: Creates an array of indices.
+- **np.linspace**: Generates smooth x values for plotting.
+- **make_interp_spline**: Smooths the balance line for visualization.
+
+## Key Metrics Calculation
 
 ```python
 total_pnl = df['Profit'].sum()
@@ -126,9 +147,10 @@ rr_ratio_avg = abs(average_profit / average_loss) if average_loss != 0 else None
 # Calculate percentage growth
 percentage_growth = (df['Balance'].iloc[-1] - initial_balance) / initial_balance * 100
 ```
-- Calculates key metrics such as total profit and loss, total number of trades, most traded instrument and day, win rate, average profit/loss, risk-reward ratio, and percentage growth over the analyzed period.
 
-### Additional Metrics Calculation
+- Calculates key metrics: total profit/loss, total trades, most traded instrument, most traded day, win rate, risk-reward ratio, and percentage growth.
+
+## Additional Metrics Calculation
 
 ```python
 max_drawdown = df['Balance'].min() - initial_balance
@@ -136,9 +158,10 @@ average_trade_duration = df['Trade duration in minutes'].mean()
 average_win = df[df['Profit'] > 0]['Profit'].mean()
 average_loss = df[df['Profit'] < 0]['Profit'].mean()
 ```
-- Computes additional metrics like maximum drawdown, average trade duration, average win, and average loss.
 
-### Displaying Key Metrics
+- Computes additional metrics: maximum drawdown, average trade duration, average win, and average loss.
+
+## Displaying Key Metrics
 
 ```python
 st.markdown("### Key Metrics")
@@ -152,11 +175,12 @@ if win_rate is not None:
     col5.metric(label="Win Rate", value=f"{win_rate:.2f}%")
 col6.metric(label="Most Traded Day", value=f"{most_traded_day}")
 ```
-- Displays key metrics using Streamlit’s `metric` function to give an overview of the trading performance in a visually appealing manner.
 
-### Visualizations
+- Displays key metrics using Streamlit’s `metric` function for an overview of trading performance.
 
-#### Cumulative Balance Plot
+## Visualizations
+
+### Cumulative Balance Plot
 
 ```python
 fig, ax = plt.subplots(figsize=(8, 4))
@@ -169,9 +193,10 @@ ax.set_xlim(x.min(), x.max())
 ax.grid(False)
 st.pyplot(fig)
 ```
-- Uses Matplotlib to create a plot of the cumulative balance over time, providing a visual representation of performance against the initial balance.
 
-#### Trading Session Performance Bar Chart
+- Uses Matplotlib to create a cumulative balance plot for visual performance analysis.
+
+### Trading Session Performance Bar Chart
 
 ```python
 colors = ['green' if session in ['New York Session', 'London Session'] else 'red' for session in session_performance.index]
@@ -183,12 +208,12 @@ ax.grid(True, which='both', axis='y', linestyle='-')  # Only horizontal lines
 st.pyplot(fig)
 plt.show()
 ```
-- Creates a bar chart to visualize the net profit per trading session, using different colors to distinguish between profitable and unprofitable sessions.
 
-### Insights and Advice
+- Creates a bar chart to visualize net profit per trading session, distinguishing profitable and unprofitable sessions with color coding.
+
+## Insights and Advice
 
 ```python
 st.subheader("Insights and Advice")
 st.markdown(f"""
-- **Best Trading Pair**: **{net_profit_per_symbol.idxmax()}** with a net profit of £{net_profit_per_symbol.max():,.2f}.
-- **Worst Trading Pair**: **{worst_trading_pair}** with
+- **Best Trading Pair**: **{net_profit
